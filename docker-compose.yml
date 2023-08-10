@@ -1,0 +1,26 @@
+version: '3'
+services:
+  vaccin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nestjs
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+
+  sonarqube:
+    image: "sonarqube:latest"
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:h2:tcp://sonarqube-db/sonar
+      - SONAR_JDBC_USERNAME=sonar
+      - SONAR_JDBC_PASSWORD=sonar
+    volumes:
+      - ./data/sonarqube:/opt/sonarqube/data
+
+
